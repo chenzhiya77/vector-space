@@ -1,0 +1,49 @@
+import os
+import subprocess
+
+import render_vs as R
+
+FPS = 24
+DURATION = 15.0
+N_FRAMES = int(round(DURATION * FPS))
+
+
+def main():
+    x, y, z, radius, color, bright, elong, wind, kind = R.build_scene()
+
+    mp4_path = os.path.join(R.OUT, "vs_space_video_v2.mp4")
+    ff = subprocess.Popen(
+        [
+            "ffmpeg", "-y",
+            "-f", "rawvideo", "-pix_fmt", "rgb24",
+            "-s", f"{R.W}x{R.H}", "-r", str(FPS), "-i", "-",
+            "-c:v", "libx264", "-pix_fmt", "yuv420p",
+            "-crf", "18", "-movflags", "+faststart", mp4_path,
+        ],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    checks = {
+        int(round(0.25 * FPS)): "vs_v2chk_ease1.png",
+        int(round(0.9 * FPS)): "vs_v2chk_ease2.png",
+        int(round(1.6 * FPS)): "vs_v2chk_ease3.png",
+        int(round(3.1 * FPS)): "vs_v2chk_anchor.png",
+        int(round(8.5 * FPS)): "vs_v2chk_mid.png",
+        int(round(14.9 * FPS)): "vs_v2chk_last.png",
+    }
+    for k in range(N_FRAMES):
+        tt = k / FPS
+        img = R.frame_image(x, y, z, radius, color, bright, elong, wind, kind, time_s=tt)
+        ff.stdin.write(img.tobytes())
+        if k in checks:
+            img.save(os.path.join(R.OUT, checks[k]))
+        if k % 48 == 0:
+            print("frame", k)
+    ff.stdin.close()
+    ff.wait()
+    print("mp4 done rc", ff.returncode, mp4_path, os.path.getsize(mp4_path))
+
+
+if __name__ == "__main__":
+    main()
