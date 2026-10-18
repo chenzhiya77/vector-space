@@ -3,6 +3,9 @@ import subprocess
 
 import render_vs as R
 
+R.V3 = True
+R.V4 = True
+
 FPS = 24
 DURATION = 15.0
 N_FRAMES = int(round(DURATION * FPS))
@@ -11,7 +14,7 @@ N_FRAMES = int(round(DURATION * FPS))
 def main():
     x, y, z, radius, color, bright, elong, wind, kind = R.build_scene()
 
-    mp4_path = os.path.join(R.OUT, "vs_space_video_v2.mp4")
+    mp4_path = os.path.join(R.OUT, "vs_space_video_v4.mp4")
     ff = subprocess.Popen(
         [
             "ffmpeg", "-y",
@@ -25,12 +28,9 @@ def main():
         stderr=subprocess.DEVNULL,
     )
     checks = {
-        int(round(0.25 * FPS)): "vs_v2chk_ease1.png",
-        int(round(0.9 * FPS)): "vs_v2chk_ease2.png",
-        int(round(1.6 * FPS)): "vs_v2chk_ease3.png",
-        int(round(3.1 * FPS)): "vs_v2chk_anchor.png",
-        int(round(8.5 * FPS)): "vs_v2chk_mid.png",
-        int(round(14.9 * FPS)): "vs_v2chk_last.png",
+        int(round(3.1 * FPS)): "vs_v4final_anchor.png",
+        int(round(8.5 * FPS)): "vs_v4final_mid.png",
+        int(round(14.9 * FPS)): "vs_v4final_last.png",
     }
     for k in range(N_FRAMES):
         tt = k / FPS
