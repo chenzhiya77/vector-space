@@ -7,16 +7,23 @@
 | 文件 | 作用 |
 | --- | --- |
 | `render_vs.py` | 唯一源码：v4 场景（星尘 3800 / 臂星 2200 / 核球 / 背景星场 / 雾带 / 尘带）+ 旋转律 + 逐帧合成 |
-| `make_space_still.py` | 出 v4 定版静帧（t=3.1s）→ `vs_space_still_v4.png` |
-| `make_space_video.py` | 出 15 s v4 视频 → `vs_space_video_v4.mp4` |
+| `make_space_still.py` | 出 v4 定版静帧（t=3.1s）→ `renders/final/vs_space_still_v4.png` |
+| `make_space_video.py` | 出 15 s v4 视频 → `renders/final/vs_space_video_v4.mp4` |
 | `probe_mist_balance.py` | 探针：雾带上下半质量、连续性、尺寸/亮度分布 |
 | `probe_motion_pops.py` | 探针：深度阈值换挡统计（前/后雾乘数一帧跳次数） |
 
+## 目录
+
+- `renders/final/`：当前交付（v4 静帧、15 s 成片、`vs_v4final_*` 自查帧）
+- `renders/compare/`：v3/v4 对照件（静帧、预览、A/B、首末帧）
+- `renders/legacy/`：v2 定版与旧检查帧
+- `archive/`：历史件与已放弃的 v5 试验（gitignore，不入库）
+
 ## 当前产物
 
-- 定版静帧 `vs_space_still_v4.png`；视频 `vs_space_video_v4.mp4`（差速自转 + 起转缓入）
-- v2 定版 `vs_space_still_42g.png` / `vs_space_video_v2.mp4` 留作 A/B；`vs_space_still_anchor.png` 为 v2 锚点，可由已提交的导入版渲染器复现
-- 自查帧 `vs_v4final_*`
+- 定版静帧 `renders/final/vs_space_still_v4.png`；视频 `renders/final/vs_space_video_v4.mp4`（差速自转 + 起转缓入）
+- v2 定版 `renders/legacy/vs_space_still_42g.png` / `renders/legacy/vs_space_video_v2.mp4` 留作 A/B；`renders/legacy/vs_space_still_anchor.png` 为 v2 锚点，可由已提交的导入版渲染器复现
+- 自查帧 `renders/final/vs_v4final_*`
 
 ## v4 画面构成
 
@@ -42,4 +49,4 @@ E:\app\python\agent\deer-flow\backend\.venv\Scripts\python.exe make_space_video.
 
 ## archive/
 
-历史件 97 个，只存档不删：历史静帧 41、检查帧 `vs_chk_*` 40、旧视频自查帧 `vs_vframe_*` 3，以及早期命中/图标/loop/mp4check 实验件 13。
+历史件 97 个，只存档不删：历史静帧 41、检查帧 `vs_chk_*` 40、旧视频自查帧 `vs_vframe_*` 3，以及早期命中/图标/loop/mp4check 实验件 13。另有已放弃的 v5 试验件 7 个，存于 `archive/v5/`（gitignore）。

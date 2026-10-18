@@ -13,7 +13,7 @@ N_FRAMES = int(round(DURATION * FPS))
 def main():
     x, y, z, radius, color, bright, elong, wind, kind = R.build_scene()
 
-    mp4_path = os.path.join(R.OUT, "vs_space_v3_preview.mp4")
+    mp4_path = os.path.join(R.COMPARE, "vs_space_v3_preview.mp4")
     ff = subprocess.Popen(
         [
             "ffmpeg", "-y",
@@ -32,7 +32,7 @@ def main():
         img = R.frame_image(x, y, z, radius, color, bright, elong, wind, kind, time_s=tt)
         ff.stdin.write(img.tobytes())
         if k in checks:
-            img.save(os.path.join(R.OUT, checks[k]))
+            img.save(os.path.join(R.COMPARE, checks[k]))
         if k % 24 == 0:
             print("frame", k, flush=True)
     ff.stdin.close()

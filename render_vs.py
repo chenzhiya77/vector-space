@@ -6,7 +6,13 @@ import os
 import numpy as np
 from PIL import Image, ImageChops, ImageFilter
 
-OUT = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(ROOT, "renders")
+FINAL = os.path.join(OUT, "final")
+COMPARE = os.path.join(OUT, "compare")
+LEGACY = os.path.join(OUT, "legacy")
+for _d in (FINAL, COMPARE, LEGACY):
+    os.makedirs(_d, exist_ok=True)
 W, H = 1280, 460
 SS = 3
 CX, CY = W / 2, H / 2
